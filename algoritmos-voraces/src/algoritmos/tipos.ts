@@ -11,8 +11,6 @@ export interface InfoComplejidad {
 }
 
 
-// Cambio de monedas 
-
 export interface CambioMonedaEntrada {
   monedas: number[];
   cantidad: number;
@@ -23,8 +21,6 @@ export interface ResultadoCambio {
   pasos: PasoSimulacion[];
 }
 
-
-// Mochila fraccionaria 
 
 export interface ObjetoMochila {
   nombre: string;
@@ -45,7 +41,6 @@ export interface ResultadoMochila {
 }
 
 
-// Programación de tareas 
 
 export interface Tarea {
   nombre: string;
