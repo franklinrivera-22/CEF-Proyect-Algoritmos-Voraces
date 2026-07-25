@@ -46,4 +46,7 @@ export default defineConfig({
       devOptions: { enabled: true },
     }),
   ],
+  server: {
+    port: 5183, 
+  },
 })
