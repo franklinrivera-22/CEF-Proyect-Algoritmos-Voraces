@@ -1,14 +1,12 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
+import GreedyWorker from '../algoritmos/greedy.worker?worker';
 
 export function useWorker() {
   const [cargando, setCargando] = useState(false);
   const workerRef = useRef<Worker | null>(null);
 
   useEffect(() => {
-    workerRef.current = new Worker(
-      new URL('../algoritmos/greedy.worker.ts', import.meta.url),
-      { type: 'module' }
-    );
+    workerRef.current = new GreedyWorker();
 
     return () => {
       workerRef.current?.terminate();
@@ -16,22 +14,31 @@ export function useWorker() {
   }, []);
 
   const ejecutarEnWorker = useCallback(
-    <T = unknown, R = unknown>(tipo: string, datos: T, onResultado: (resultado: R) => void) => {
+    <T = unknown, R = unknown>(
+      tipo: "CAMBIO_MONEDAS" | "MOCHILA" | "TAREAS", 
+      datos: T, 
+      onResultado: (resultado: R) => void
+    ) => {
       if (!workerRef.current) return;
 
       setCargando(true);
 
-      workerRef.current.onmessage = (e: MessageEvent<{ resultado: R }>) => {
+      const handleMessage = (e: MessageEvent<{ resultado: R }>) => {
         setCargando(false);
         onResultado(e.data.resultado);
+        workerRef.current?.removeEventListener('message', handleMessage);
       };
 
-      workerRef.current.onerror = (err) => {
+      const handleError = (err: ErrorEvent) => {
         setCargando(false);
         console.error('Error reportado desde el Web Worker:', err);
+        workerRef.current?.removeEventListener('error', handleError);
       };
 
-      workerRef.current.postMessage({ tipo, datos } as unknown);
+      workerRef.current.addEventListener('message', handleMessage);
+      workerRef.current.addEventListener('error', handleError);
+
+      workerRef.current.postMessage({ tipo, datos });
     },
     []
   );
