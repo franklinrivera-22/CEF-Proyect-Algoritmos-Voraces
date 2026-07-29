@@ -33,13 +33,18 @@ export interface MochilaEntrada {
   capacidad: number;
 }
 
+export interface ObjetoSeleccionado extends ObjetoMochila {
+  fraccion: number;     
+  pesoTomado: number;    
+  valorAportado: number; 
+}
+
 export interface ResultadoMochila {
-  objetosSeleccionados: ObjetoMochila[];
+  objetosSeleccionados: ObjetoSeleccionado[];
   valorTotal: number;
   pesoTotal: number;
   pasos: PasoSimulacion[];
 }
-
 
 
 export interface Tarea {
