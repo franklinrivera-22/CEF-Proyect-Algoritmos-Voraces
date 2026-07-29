@@ -5,6 +5,8 @@ import { usePWA } from "./hooks/usePWA";
 
 import { TareasView } from "./components/tareas/Tareas";
 import { CambioMonedasApp } from "./components/cambio-monedas/CambioMonedasApp";
+import { MochilaFraccionariaApp } from "./components/mochila/MochilaFraccionariaApp";
+
 
 export function App() {
   const [seccion, setSeccion] = useState<'monedas' | 'mochila' | 'actividades'>('monedas');
@@ -67,6 +69,8 @@ export function App() {
 
           <div className="card-body">
             {seccion === 'monedas' && <CambioMonedasApp />}
+
+            {seccion === 'mochila' && <MochilaFraccionariaApp />}
 
             {seccion === 'actividades' && <TareasView />}
           </div>
