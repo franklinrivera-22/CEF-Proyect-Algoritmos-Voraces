@@ -47,7 +47,7 @@ export const Home: React.FC<HomeProps> = ({ onNavegar }) => {
       <div className="card-header">
         <h2 className="card-title">Bienvenido a GreedyLab</h2>
         <p className="card-text" style={{ marginTop: "6px" }}>
-          Laboratorio interactivo de <strong>algoritmos voraces (greedy)</strong>.
+          Laboratorio interactivo de algoritmos voraces (greedy).
           Cada algoritmo muestra su decisión paso a paso y su complejidad. Elige
           uno para comenzar.
         </p>
